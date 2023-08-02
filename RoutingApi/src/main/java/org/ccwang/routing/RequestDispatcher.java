@@ -11,6 +11,9 @@ import org.ccwang.routing.loadbalancing.LoadBalancingScheme;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+/**
+ * Dispatches requests to given hosts provided by LoadBalancingScheme.
+ */
 public class RequestDispatcher {
   private static final int MAX_RETRIES = 2;
   private final HttpClient httpClient;

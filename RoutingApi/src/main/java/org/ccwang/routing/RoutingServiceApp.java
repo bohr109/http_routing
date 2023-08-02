@@ -25,7 +25,10 @@ public class RoutingServiceApp {
             .build(new HealthCheckCacheLoader());
     this.dispatcher = new RequestDispatcher(new RoundRobinScheme(uris, cache));
     this.app =
-        Javalin.create()
+        Javalin.create(
+                config -> {
+                  config.http.defaultContentType = "application/json";
+                })
             .routes(
                 () -> {
                   post("/", dispatcher::dispatch);

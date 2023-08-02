@@ -146,7 +146,7 @@ public class RequestDispatcherTest {
     }
   }
 
-  // Simplified RoundRobinScheme without cache support
+  /** Simplified {@link org.ccwang.routing.loadbalancing.RoundRobinScheme} without cache support */
   static class SimpleRoundRobinScheme implements LoadBalancingScheme {
     private final ImmutableList<URI> uris;
     private final AtomicInteger counter;
