@@ -14,7 +14,6 @@ public class Main {
       builder.add(URI.create(args[i]));
     }
 
-
     new RoutingServiceApp(builder.build()).app().start(Integer.parseInt(args[0]));
   }
 }

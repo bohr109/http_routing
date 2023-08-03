@@ -17,7 +17,7 @@ public class HealthCheckCacheLoader extends CacheLoader<URI, Integer> {
   }
 
   @Override
-  public Integer load(URI uri){
+  public Integer load(URI uri) {
     var healthzUri = uri.resolve("/healthz");
     var httpClient = HttpClient.newBuilder().build();
     var request =

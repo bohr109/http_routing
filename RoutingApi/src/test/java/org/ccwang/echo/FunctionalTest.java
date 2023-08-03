@@ -23,6 +23,7 @@ public class FunctionalTest {
           assertThat(response.code()).isEqualTo(200);
         });
   }
+
   @Test
   public void POST_returns_echo() {
     JavalinTest.test(

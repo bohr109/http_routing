@@ -13,28 +13,29 @@ import java.util.concurrent.atomic.AtomicInteger;
  * hosts.
  */
 public class RoundRobinScheme implements LoadBalancingScheme {
-	private final ImmutableList<URI> uris;
-	private final AtomicInteger counter;
-	LoadingCache<URI, Integer> cache;
-	public RoundRobinScheme(List<URI> uris, LoadingCache<URI, Integer> cache) {
-		this.uris = ImmutableList.copyOf(uris);
-		this.counter = new AtomicInteger();
-		this.cache = cache;
-	}
+  private final ImmutableList<URI> uris;
+  private final AtomicInteger counter;
+  LoadingCache<URI, Integer> cache;
 
-	@Override
-	public synchronized Optional<URI> getNextHost() {
+  public RoundRobinScheme(List<URI> uris, LoadingCache<URI, Integer> cache) {
+    this.uris = ImmutableList.copyOf(uris);
+    this.counter = new AtomicInteger();
+    this.cache = cache;
+  }
+
+  @Override
+  public synchronized Optional<URI> getNextHost() {
     for (int i = 0; i < uris.size(); ++i) {
       URI candidate = getNextURI();
-			if (cache.getUnchecked(candidate).equals(200)) {
-				return Optional.of(candidate);
-			}
-		}
-		return Optional.empty();
-	}
+      if (cache.getUnchecked(candidate).equals(200)) {
+        return Optional.of(candidate);
+      }
+    }
+    return Optional.empty();
+  }
 
-	private URI getNextURI() {
-		// TODO: Launch a background thread to reset the counter
-		return uris.get(counter.getAndIncrement() % uris.size());
-	}
+  private URI getNextURI() {
+    // TODO: Launch a background thread to reset the counter
+    return uris.get(counter.getAndIncrement() % uris.size());
+  }
 }
